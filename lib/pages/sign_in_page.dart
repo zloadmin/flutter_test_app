@@ -1,18 +1,18 @@
-import 'package:crud_api/blocs/login_cubit/login_cubit.dart';
+import 'package:crud_api/blocs/sign_in_cubit/sign_in_cubit.dart';
 import 'package:crud_api/pages/widgets/input_widget.dart';
 import 'package:crud_api/pages/widgets/text_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/login_cubit/login_state.dart';
+import '../blocs/sign_in_cubit/sign_in_state.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -23,20 +23,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget LoginForm(BuildContext context, LoginState loginState) {
+  Widget SignInForm(BuildContext context, SignInState signInState) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Login', style: TextStyle(fontSize: 30)),
+          Text('SignIn', style: TextStyle(fontSize: 30)),
           SizedBox(height: 30),
-          TextError(text: loginState is LoginFailed ? 'Server Error' : null),
+          TextError(text: signInState is SignInFailed ? 'Server Error' : null),
           InputWidget(
             hintText: 'Email',
             controller: _emailController,
-            validationError: loginState is LoginValidationError
-                ? loginState.getError('email')
+            validationError: signInState is SignInValidationError
+                ? signInState.getError('email')
                 : null,
           ),
           SizedBox(height: 30),
@@ -44,19 +44,19 @@ class _LoginPageState extends State<LoginPage> {
             hintText: 'Password',
             controller: _passwordController,
             obscureText: true,
-            validationError: loginState is LoginValidationError
-                ? loginState.getError('password')
+            validationError: signInState is SignInValidationError
+                ? signInState.getError('password')
                 : null,
           ),
           SizedBox(height: 50),
           ElevatedButton(
             onPressed: () {
-              context.read<LoginCubit>().submit(
+              context.read<SignInCubit>().submit(
                 _emailController.text,
                 _passwordController.text,
               );
             },
-            child: const Text('Login'),
+            child: const Text('SignIn'),
           ),
         ],
       ),
@@ -66,17 +66,17 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LoginCubit(),
+      create: (_) => SignInCubit(),
       child: Scaffold(
-        body: BlocBuilder<LoginCubit, LoginState>(
-          builder: (context, loginState) {
-            if (loginState is LoginLoading) {
+        body: BlocBuilder<SignInCubit, SignInState>(
+          builder: (context, signInState) {
+            if (signInState is SignInLoading) {
               return ProgressIndicator();
             }
-            if (loginState is LoginSuccess) {
+            if (signInState is SignInSuccess) {
               // redirect
             }
-            return LoginForm(context, loginState);
+            return SignInForm(context, signInState);
           },
         ),
       ),

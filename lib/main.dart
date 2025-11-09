@@ -1,4 +1,5 @@
-import './pages/login_page.dart';
+import './pages/sign_in_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MaterialApp(home: LoginPage()));
+void main() => runApp(const MaterialApp(home: SignInPage()));
+

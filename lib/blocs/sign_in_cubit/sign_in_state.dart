@@ -2,31 +2,31 @@ import 'package:crud_api/core/responses/validation_response.dart';
 import 'package:crud_api/models/user_model.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class LoginState extends Equatable {
+abstract class SignInState extends Equatable {
 
 }
 
-class LoginInitial extends LoginState {
+class SignInInitial extends SignInState {
   @override
   List<Object?> get props => [];
 
 }
 
-class LoginLoading extends LoginState {
+class SignInLoading extends SignInState {
   @override
   List<Object?> get props => [];
 }
 
-class LoginSuccess extends LoginState {
+class SignInSuccess extends SignInState {
   final UserModel userModel;
-  LoginSuccess({required this.userModel});
+  SignInSuccess({required this.userModel});
   @override
   List<Object?> get props => [userModel];
 }
 
-class LoginValidationError extends LoginState {
+class SignInValidationError extends SignInState {
   final ValidationResponse validationResponse;
-  LoginValidationError({required this.validationResponse});
+  SignInValidationError({required this.validationResponse});
   String? getError(String key) {
     return validationResponse.getError(key);
   }
@@ -34,6 +34,6 @@ class LoginValidationError extends LoginState {
   List<Object?> get props => [validationResponse];
 }
 
-class LoginFailed extends LoginState {
+class SignInFailed extends SignInState {
   List<Object?> get props => [];
 }
