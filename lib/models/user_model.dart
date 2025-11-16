@@ -1,10 +1,11 @@
+import 'package:crud_api/models/model.dart';
 import 'package:equatable/equatable.dart';
 
-class UserModel extends Equatable {
+class UserModel extends Model {
   final int id;
   final String email;
 
-  const UserModel({required this.id, required this.email});
+  UserModel({required this.id, required this.email});
 
   // Factory constructor to create a User object from a JSON Map
   factory UserModel.fromJson(Map<String, dynamic> json) {
